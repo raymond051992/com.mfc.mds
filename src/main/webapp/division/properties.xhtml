@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+	xmlns:o="http://omnifaces.org/ui"
+	template="/templates/main.xhtml">
+	
+	<ui:define name="title">Division</ui:define>
+	<ui:define name="pageContent">
+		<h:form id="divisionForm">
+			<h:messages id="messages" styleClass="error-message"/>
+			<div class="mdl-grid">
+			  <div class="mdl-cell mdl-cell--12-col">
+			  	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+	           		<h:inputText id="code" value="#{divisionPropertiesBackingBean.division.code}" styleClass="mdl-textfield__input"/>
+				    <label class="mdl-textfield__label" for="code">Code</label>
+				</div>
+			  </div>
+			  <div class="mdl-cell mdl-cell--12-col">
+			  	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+	           		<h:inputTextarea id="description" value="#{divisionPropertiesBackingBean.division.description}" styleClass="mdl-textfield__input"/>
+				    <label class="mdl-textfield__label" for="description">Description</label>
+				</div>
+			  </div>
+			  
+			</div>
+			<div class="actions-container">
+				<h:commandButton 
+					action="#{divisionPropertiesBackingBean.save()}" 
+					value="Save"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+					<f:ajax execute="@form" render="messages"/>
+				</h:commandButton>
+				<button jsf:action="#{divisionPropertiesBackingBean.backToList()}" 
+					jsf:immediate="true"
+					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+					Cancel
+				</button>
+  			</div>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

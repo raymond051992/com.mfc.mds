@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+	xmlns:o="http://omnifaces.org/ui"
+	template="/templates/main.xhtml">
+	
+	<ui:define name="title">Transaction Types</ui:define>
+	<ui:define name="pageContent">
+		<h:form id="transactionTypeForm">
+			<table jsf:id="transactionTypeDataTable" class="mdl-data-table mdl-js-data-table">
+			  <thead>
+			    <tr>
+			      <th class="mdl-data-table__cell--non-numeric">Code</th>
+			      <th class="mdl-data-table__cell--non-numeric">Description</th>
+			      <th>
+			      	<h:commandLink value="Add"
+			      		action="#{transactionTypeListBackingBean.createNewInPropertiesPage()}" 
+			      		styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+			      	</h:commandLink>
+						
+				</th>
+			    </tr>
+			  </thead>
+			  <tbody >
+			  	<ui:repeat var="type" value="#{transactionTypeListBackingBean.list}">
+			  	<tr>
+			  		<td class="mdl-data-table__cell--non-numeric">#{type.code}</td>
+			  		<td class="mdl-data-table__cell--non-numeric">#{type.description}</td>
+			  		<td>
+			  			<button id="demo-menu-lower-left#{type.idNo}" jsf:rendered="true" class="mdl-button mdl-js-button mdl-button--icon" >
+						  <i class="material-icons">more_vert</i>
+						  <f:ajax/>
+						</button>
+						
+						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+						    for="demo-menu-lower-left#{type.idNo}">
+						  <li class="mdl-menu__item">
+						  	<h:commandLink action="#{transactionTypeListBackingBean.editInPropertiesPage(type)}" 
+						  		value="Edit" >
+						  	</h:commandLink>
+						  </li>
+						  <li class="mdl-menu__item">
+						  	<h:commandLink 
+						  		action="#{transactionTypeListBackingBean.setUpdateMode('delete')}" 
+						  		value="Delete"
+						  		styleClass="modal__trigger"
+						  		pt:data-modal="#modal">
+						  		<f:setPropertyActionListener value="#{type}" target="#{transactionTypeListBackingBean.transactionType}" />
+						  		<f:ajax render=":transactionTypeForm:confirmationMessage"/>
+						  	</h:commandLink>
+						  </li>
+						</ul>
+			  		</td>
+			  	</tr>
+		   		</ui:repeat>
+			  </tbody>
+			</table>
+			
+			<div id="modal" class="modal modal__bg">
+				<div class="modal__dialog">
+					<div class="modal__content">
+	
+	
+						<div class="modal__text">
+							<p>
+								<h:outputText id="confirmationMessage" value="Are you sure you want to delete #{transactionTypeListBackingBean.transactionType.code}?" />
+							</p>
+						</div>
+	
+						<div class="modal__footer">
+							<h:commandLink action="#{transactionTypeListBackingBean.delete()}" value="Delete"
+								styleClass="mdl-button mdl-button--colored mdl-js-button" />
+							<a class="mdl-button mdl-button--colored mdl-js-button modal__close">Close</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

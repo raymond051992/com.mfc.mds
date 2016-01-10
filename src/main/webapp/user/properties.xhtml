@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+	xmlns:o="http://omnifaces.org/ui"
+	template="/templates/main.xhtml">
+	
+	<ui:define name="title">User</ui:define>
+	<ui:define name="pageContent">
+		<h:form id="userForm">
+			<h:messages id="messages" styleClass="error-message"/>
+			<div class="mdl-grid" style="padding-bottom: 0;">
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div
+						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<h:inputText id="firstname"
+							value="#{userPropertiesBackingBean.user.firstName}"
+							styleClass="mdl-textfield__input" />
+						<label class="mdl-textfield__label" for="firstname">First Name</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div
+						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<h:inputText id="middlename"
+							value="#{userPropertiesBackingBean.user.middleName}"
+							styleClass="mdl-textfield__input" />
+						<label class="mdl-textfield__label" for="middlename">Middle Name</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div
+						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<h:inputText id="lastname"
+							value="#{userPropertiesBackingBean.user.lastName}"
+							styleClass="mdl-textfield__input" />
+						<label class="mdl-textfield__label" for="lastname">Last Name</label>
+					</div>
+				</div>
+			</div>
+			<div class="mdl-grid" style="padding-top: 0;padding-bottom: 0;">
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div
+						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<h:inputText id="contactno"
+							value="#{userPropertiesBackingBean.user.contactNo}"
+							styleClass="mdl-textfield__input" />
+						<label class="mdl-textfield__label" for="contactno">Contact No.</label>
+					</div>
+				</div>
+			</div>
+			<div class="mdl-grid" style="padding-top: 0;">
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div
+						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<h:inputText id="email"
+							value="#{userPropertiesBackingBean.user.email}"
+							styleClass="mdl-textfield__input" />
+						<label class="mdl-textfield__label" for="email">Email</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div
+						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<h:inputSecret id="pass" redisplay="true"
+							value="#{userPropertiesBackingBean.password}"
+							styleClass="mdl-textfield__input" />
+						<label class="mdl-textfield__label" for="pass">Password</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div
+						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<h:inputSecret id="cpass" redisplay="true"
+							value="#{userPropertiesBackingBean.confirmPassword}"
+							styleClass="mdl-textfield__input" />
+						<label class="mdl-textfield__label" for="cpass">Confirm Password</label>
+					</div>
+				</div>
+			</div>
+			<div class="actions-container">
+				<h:commandButton 
+					action="#{userPropertiesBackingBean.save()}" 
+					value="Save"
+					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+					<f:ajax execute="@form" render="messages"/>
+				</h:commandButton>
+				<button jsf:action="#{userPropertiesBackingBean.backToList()}"
+					jsf:immediate="true"
+					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+					Cancel</button>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
