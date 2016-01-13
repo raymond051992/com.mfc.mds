@@ -33,6 +33,10 @@ public class UserSession implements Serializable {
 		this.user = user;
 	}
 	
+	public Boolean isDistributorAccount(){
+		return (user.getDistributor() != null);
+	}
+	
 	public void logout(){
 		try {
 			Faces.invalidateSession();

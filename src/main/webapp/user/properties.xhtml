@@ -50,6 +50,18 @@
 						<label class="mdl-textfield__label" for="contactno">Contact No.</label>
 					</div>
 				</div>
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+						<h:selectOneMenu id="distributor"
+							styleClass="mdl-selectfield__select"
+							value="#{userPropertiesBackingBean.user.distributor}"
+							converter="#{userPropertiesBackingBean.distributorConverter}">
+							<f:selectItems
+								value="#{userPropertiesBackingBean.distributorSelections}" />
+						</h:selectOneMenu>
+						<h:outputLabel value="Distributor" for="distributor" styleClass="mdl-selectfield__label" />
+					</div>
+				  </div>
 			</div>
 			<div class="mdl-grid" style="padding-top: 0;">
 				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">

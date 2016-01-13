@@ -42,20 +42,33 @@
 				    <label class="mdl-textfield__label" for="salesmanName">Salesman Name</label>
 				</div>
 			  </div>
-			  <div class="mdl-cell mdl-cell--12-col">
-			  	<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet" style="margin: 0;">
-			   	  	<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-			   	  		<h:selectOneMenu id="storeType" styleClass="mdl-selectfield__select"
-			   	  			 value="#{customerPropertiesBackingBean.customer.storeType}"
-			   	  			 converter="#{customerPropertiesBackingBean.storeTypeConverter}">
-			   	  			<f:selectItem noSelectionOption="true"/>
-			   	  			<f:selectItems value="#{customerPropertiesBackingBean.storeTypeSelections}"/>
-			   	  		</h:selectOneMenu>
-			   	  		<h:outputLabel value="Store Type" for="storeType" styleClass="mdl-selectfield__label"/>
-	                </div>
-			  	</div>
+			  <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+					<h:selectOneMenu id="storeType"
+						styleClass="mdl-selectfield__select"
+						value="#{customerPropertiesBackingBean.customer.storeType}"
+						converter="#{customerPropertiesBackingBean.storeTypeConverter}">
+						<f:selectItem noSelectionOption="true" />
+						<f:selectItems
+							value="#{customerPropertiesBackingBean.storeTypeSelections}" />
+					</h:selectOneMenu>
+					<h:outputLabel value="Store Type" for="storeType" styleClass="mdl-selectfield__label" />
+				</div>
 			  </div>
-		      <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+			  <div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet">
+				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+					<h:selectOneMenu id="distributor"
+						styleClass="mdl-selectfield__select"
+						value="#{customerPropertiesBackingBean.customer.distributor}"
+						converter="#{customerPropertiesBackingBean.distributorConverter}">
+						<f:selectItem noSelectionOption="true" />
+						<f:selectItems
+							value="#{customerPropertiesBackingBean.distributorSelections}" />
+					</h:selectOneMenu>
+					<h:outputLabel value="Distributor" for="distributor" styleClass="mdl-selectfield__label" />
+				</div>
+			  </div>
+			  <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
 			  	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 	           		<h:inputText id="barangayCode" value="#{customerPropertiesBackingBean.customer.barangayCode}" styleClass="mdl-textfield__input"/>
 				    <label class="mdl-textfield__label" for="barangayCode">Barangay Code</label>

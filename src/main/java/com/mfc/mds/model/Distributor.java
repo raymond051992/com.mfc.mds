@@ -34,6 +34,7 @@ public class Distributor implements Record {
 		this.idNo = idNo;
 	}
 
+	@Column(unique=true)
 	@NotBlank(message="Code is required.")
 	public String getCode() {
 		return code;

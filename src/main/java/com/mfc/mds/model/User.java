@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -26,6 +28,8 @@ public class User implements Record {
 	
 	private String email;
 	private String password;
+	
+	private Distributor distributor;
 	
 	private String entryBy;
 	private Date entryDate;
@@ -94,6 +98,16 @@ public class User implements Record {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@JoinColumn(name="distributorIdNo")
+	@ManyToOne(targetEntity=Distributor.class)
+	public Distributor getDistributor() {
+		return distributor;
+	}
+	
+	public void setDistributor(Distributor distributor) {
+		this.distributor = distributor;
 	}
 
 	public String getEntryBy() {

@@ -15,8 +15,8 @@
 			    <tr>
 			      <th class="mdl-data-table__cell--non-numeric">Code</th>
 			      <th class="mdl-data-table__cell--non-numeric">Name</th>
-			      <th class="mdl-data-table__cell--non-numeric">Salesman Code</th>
 			      <th class="mdl-data-table__cell--non-numeric">Store Type</th>
+			      <th class="mdl-data-table__cell--non-numeric">Distributor</th>
 			      <th>
 			      	<h:commandLink value="Add"
 			      		action="#{customerListBackingBean.createNewInPropertiesPage()}" 
@@ -31,8 +31,8 @@
 			  	<tr>
 			  		<td class="mdl-data-table__cell--non-numeric">#{customer.code}</td>
 			  		<td class="mdl-data-table__cell--non-numeric">#{customer.name}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{customer.salesmanCode}</td>
 			  		<td class="mdl-data-table__cell--non-numeric">#{customer.storeType.code}</td>
+			  		<td class="mdl-data-table__cell--non-numeric">#{customer.distributor.code}</td>
 			  		<td>
 			  			<button id="demo-menu-lower-left#{customer.idNo}" jsf:rendered="true" class="mdl-button mdl-js-button mdl-button--icon" >
 						  <i class="material-icons">more_vert</i>

@@ -1,12 +1,16 @@
 package com.mfc.mds.web.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 
 import com.mfc.mds.model.GenericSessionBean;
 import com.mfc.mds.model.Record;
 import com.mfc.mds.model.SessionBean;
+import com.mfc.mds.model.User;
+import com.mfc.mds.web.config.UserSession;
 
 public abstract class DataEntryBackingBean implements Serializable {
 
@@ -18,10 +22,16 @@ public abstract class DataEntryBackingBean implements Serializable {
 	
 	@EJB private GenericSessionBean genericSessionBean;
 	
+	@Inject private UserSession userSession;
+	
 	private Record selectedRecord;
 	private String updateMode;
 	
 	protected abstract Record createNewRecordInstance();
+
+	protected User getCurrentUser(){
+		return userSession.getUser();
+	}
 	
 	protected SessionBean getSessionBean(){
 		return genericSessionBean;
@@ -50,10 +60,14 @@ public abstract class DataEntryBackingBean implements Serializable {
 	}
 	
 	public void save(){
+		getSelectedRecord().setEntryBy(userSession.getUser().getEmail());
+		getSelectedRecord().setEntryDate(new Date());
 		getSessionBean().persist(getSelectedRecord());
 	}
 	
 	public void saveChanges(){
+		getSelectedRecord().setEditBy(userSession.getUser().getEmail());
+		getSelectedRecord().setEditDate(new Date());
 		getSessionBean().merge(getSelectedRecord());
 	}
 	

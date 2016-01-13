@@ -28,9 +28,12 @@ public abstract class PropertiesBackingBean extends DataEntryBackingBean {
 		return null;
 	}
 	
+	public void beforeSave() throws Throwable {}
+	
 	@Override
 	public void save() {
 		try{
+			beforeSave();
 			if(getUpdateMode().equals(UPDATE_MODE_ADD)){
 				super.save();
 			}else if(getUpdateMode().equals(UPDATE_MODE_EDIT)){

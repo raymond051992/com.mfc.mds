@@ -3,10 +3,12 @@ package com.mfc.mds.web.controller.customer;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import com.mfc.mds.model.Customer;
+import com.mfc.mds.model.CustomerSessionBean;
 import com.mfc.mds.model.Record;
 import com.mfc.mds.web.controller.ListBackingBean;
 
@@ -16,6 +18,8 @@ public class CustomerListBackingBean extends ListBackingBean {
 
 	private static final long serialVersionUID = -5959153746374876689L;
 
+	@EJB private CustomerSessionBean customerSessionBean;
+	
 	@PostConstruct
 	public void init() {
 		super.init();
@@ -23,7 +27,11 @@ public class CustomerListBackingBean extends ListBackingBean {
 	
 	@Override
 	protected List<?> fetch() {
-		return getSessionBean().findAll("mdsCustomer");
+		if(getCurrentUser().getDistributor() == null){
+			return getSessionBean().findAll("mdsCustomer");
+		}else{
+			return customerSessionBean.findAll(getCurrentUser().getDistributor().getIdNo());
+		}
 	}
 
 	@Override
