@@ -133,7 +133,7 @@ public class UploadBackingBean implements Serializable {
 						transaction.setHeadOffice(cell.getStringCellValue());
 						break;
 					case 18:
-						transaction.setDocNo(cell.getStringCellValue());
+						transaction.setTransactionNo(cell.getStringCellValue());
 						break;
 					case 19:
 						transaction.setQuantity(BigDecimal.valueOf(cell.getNumericCellValue()));
@@ -310,7 +310,7 @@ public class UploadBackingBean implements Serializable {
 						}
 						break;
 					case 8:
-						transaction.setDocNo(cell.getStringCellValue());
+						transaction.setTransactionNo(cell.getStringCellValue());
 						break;
 					case 9:
 						if(cell.getStringCellValue() != null && !cell.getStringCellValue().isEmpty()){

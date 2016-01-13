@@ -12,20 +12,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity(name="mdsTransaction")
 public class Transaction implements Record {
 
 	private Integer idNo;
 	private TransactionType type;
+	private String transactionNo;
 	private Date transactionDate;
+	private String productCode;
+	private String productDescription;
 	private Product product;
 	private String whCode;
 	private Customer customer;
 	private Boolean isActive = true;
 	private Date dateDelisted;
 	private String headOffice;
-	private String docNo;
 	private BigDecimal quantity;
 	private String unit;
 	private BigDecimal cse;
@@ -57,6 +62,8 @@ public class Transaction implements Record {
 	private BigDecimal netPriceF;
 	private Date modifiedDate;
 	private String BOType;
+	
+	private Distributor distributor; 
 	
 	private String entryBy;
 	private Date entryDate;
@@ -92,6 +99,25 @@ public class Transaction implements Record {
 		this.transactionDate = transactionDate;
 	}
 
+	@NotBlank(message="Product code is required.")
+	public String getProductCode() {
+		return productCode;
+	}
+	
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	
+	@NotBlank(message="Product code is required.")
+	@Column(columnDefinition="text")
+	public String getProductDescription() {
+		return productDescription;
+	}
+	
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+	
 	@JoinColumn(name="productIdNo")
 	@ManyToOne(targetEntity=Product.class)
 	public Product getProduct() {
@@ -144,12 +170,12 @@ public class Transaction implements Record {
 		this.headOffice = headOffice;
 	}
 
-	public String getDocNo() {
-		return docNo;
+	public String getTransactionNo() {
+		return transactionNo;
 	}
 
-	public void setDocNo(String docNo) {
-		this.docNo = docNo;
+	public void setTransactionNo(String transactionNo) {
+		this.transactionNo = transactionNo;
 	}
 
 	@Column(precision=16,scale=2)
@@ -424,6 +450,17 @@ public class Transaction implements Record {
 
 	public void setBOType(String bOType) {
 		BOType = bOType;
+	}
+	
+	@NotNull(message="Distributor is required.")
+	@JoinColumn(name="distributorIdNo",nullable=false)
+	@ManyToOne(targetEntity=Distributor.class)
+	public Distributor getDistributor() {
+		return distributor;
+	}
+	
+	public void setDistributor(Distributor distributor) {
+		this.distributor = distributor;
 	}
 
 	public String getEntryBy() {

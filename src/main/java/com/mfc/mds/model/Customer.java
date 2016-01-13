@@ -23,6 +23,8 @@ public class Customer implements Record {
 	private String name;
 	private String address;
 	
+	private Distributor distributor;
+	
 	private String salesmanName;
 	private String salesmanCode;
 	
@@ -77,6 +79,17 @@ public class Customer implements Record {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	@NotNull(message="Distributor is required.")
+	@JoinColumn(name="distributorIdNo",nullable=false)
+	@ManyToOne(targetEntity=Distributor.class)
+	public Distributor getDistributor() {
+		return distributor;
+	}
+	
+	public void setDistributor(Distributor distributor) {
+		this.distributor = distributor;
 	}
 
 	public String getSalesmanName() {
