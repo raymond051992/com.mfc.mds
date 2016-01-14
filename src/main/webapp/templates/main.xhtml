@@ -65,18 +65,29 @@
 			<nav class="mdl-navigation">
 				<form jsf:id="navForm">
 				<a class="mdl-navigation__link" href="" jsf:action="/transaction/list.xhtml?faces-redirect=true">Transactions</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/distributor/list.xhtml?faces-redirect=true">Distributors</a>
 				<a class="mdl-navigation__link" href="" jsf:action="/customer/list.xhtml?faces-redirect=true">Customers</a>    
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/product/list.xhtml?faces-redirect=true">Products</a> 
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/product/mapping/list.xhtml?faces-redirect=true">Product Mapping</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/category/list.xhtml?faces-redirect=true">Categories</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/brand/list.xhtml?faces-redirect=true">Brands</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/division/list.xhtml?faces-redirect=true">Divisions</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/segment/list.xhtml?faces-redirect=true">Segments</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/store-type/list.xhtml?faces-redirect=true">Store Types</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/transaction-type/list.xhtml?faces-redirect=true">Transaction Type</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/operation-type/list.xhtml?faces-redirect=true">Operation Type</a>
-				<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/user/list.xhtml?faces-redirect=true">Users</a>
+				<div class="mdl-collapse">
+			        <a class="mdl-navigation__link mdl-collapse__button">
+			          <i class="material-icons mdl-collapse__icon mdl-animation--default">expand_more</i>
+			          Master Data
+			        </a>
+			        <div class="mdl-collapse__content-wrapper">
+			          <div class="mdl-collapse__content mdl-animation--default">
+			          	<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/distributor/list.xhtml?faces-redirect=true">Distributors</a>
+			            <a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/product/list.xhtml?faces-redirect=true">Products</a> 
+						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/product/mapping/list.xhtml?faces-redirect=true">Product Mapping</a>
+						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/category/list.xhtml?faces-redirect=true">Categories</a>
+						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/brand/list.xhtml?faces-redirect=true">Brands</a>
+						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/division/list.xhtml?faces-redirect=true">Divisions</a>
+						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/segment/list.xhtml?faces-redirect=true">Segments</a>
+						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/store-type/list.xhtml?faces-redirect=true">Store Types</a>
+						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/transaction-type/list.xhtml?faces-redirect=true">Transaction Type</a>
+						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/operation-type/list.xhtml?faces-redirect=true">Operation Type</a>
+			          </div>
+			        </div>
+			      </div>
+			      <a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/template/list.xhtml?faces-redirect=true">Templates</a>
+				  <a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/user/list.xhtml?faces-redirect=true">Users</a>
 				</form>
 			</nav>
 		</div>
@@ -92,6 +103,7 @@
 	<script src="#{requestContext.contextPath}/resources/js/material.min.js"/>
 	<script src="#{requestContext.contextPath}/resources/js/material-modal.min.js"/>
 	<script src="#{requestContext.contextPath}/resources/js/mdl-selectfield.min.js"/>
+	<script src="#{requestContext.contextPath}/resources/js/app.js"/>
 	
 	<ui:insert name="js"/>
 	
