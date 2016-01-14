@@ -9,7 +9,28 @@
 	<ui:define name="title">Transactions</ui:define>
 	<ui:define name="pageContent">
 		<h:form id="transactionForm">
-			<table jsf:id="transactionDataTable" class="highlight">
+			<div class="filter-container">
+				<div class="row">
+					<div class="input-field col s6 m3 l2">
+						<input id="fromdate" type="date" class="datepicker" />
+						<label for="fromdate">From Document Date</label>
+					</div>
+					<div class="input-field col s6 m3 l2">
+						<input id="todate" type="date" class="datepicker" />
+						<label for="todate">To Document Date</label>
+					</div>
+					<div class="input-field col s6 m3 l2">
+						<label for="fromdocno">From Document No.</label>
+						<h:inputText id="fromdocno" />
+					</div>
+					<div class="input-field col s6 m3 l2">
+						<label for="todocno">To Document No.</label>
+						<h:inputText id="todocno" />
+					</div>
+				</div>
+			</div>
+		
+			<table jsf:id="transactionDataTable" class="bordered highlight responsive-table">
 			  <thead>
 			    <tr>
 			      <th class="mdl-data-table__cell--non-numeric">Type</th>
