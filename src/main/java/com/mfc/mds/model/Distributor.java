@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,6 +20,7 @@ public class Distributor implements Record {
 	private Integer idNo;
 	private String code;
 	private String name;
+	private Template template;
 	
 	private String entryBy;
 	private Date entryDate;
@@ -54,6 +57,16 @@ public class Distributor implements Record {
 		this.name = name;
 	}
 
+	@JoinColumn(name="templateIdNo")
+	@ManyToOne(targetEntity=Template.class)
+	public Template getTemplate() {
+		return template;
+	}
+	
+	public void setTemplate(Template template) {
+		this.template = template;
+	}
+	
 	public String getEntryBy() {
 		return entryBy;
 	}

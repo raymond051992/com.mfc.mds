@@ -6,50 +6,8 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
 	template="/templates/main.xhtml">
 	
-	<ui:define name="title">Upload</ui:define>
+	<ui:define name="title">Transactions</ui:define>
 	<ui:define name="pageContent">
-		
-			<div id="modal" class="modal modal__bg">
-				<div class="modal__dialog">
-					<div class="modal__content">
-						<div class="modal__header">
-			              <div class="modal__title">
-			                <h2 class="modal__title-text">Please select a file</h2>
-			              </div>
-			              <span class="mdl-button mdl-button--icon mdl-js-button  material-icons  modal__close"></span>
-			            </div>
-			            
-			            <h:form prependId="false" enctype="multipart/form-data">
-			            	<div class="modal__text">
-								<div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
-									<input class="mdl-textfield__input" placeholder="File" type="text" id="uploadFile" readonly="true" />
-									<div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
-										<i class="material-icons">attach_file</i>
-										<h:inputFile value="#{uploadBackingBean.file}"  id="selectFile" >
-									        
-									    </h:inputFile>
-									</div>
-								</div>
-								<h:messages id="messages" globalOnly="true" styleClass="error-message"/>
-							</div>
-						
-	
-							<div class="modal__footer">
-								<h:commandButton action="#{uploadBackingBean.uploadFile()}" 
-									value="Upload" 
-									styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-									<f:ajax execute="@form" render="messages" />
-								</h:commandButton>
-								<a class="mdl-button mdl-button--colored mdl-js-button modal__close">Close</a>
-							</div>
-						</h:form>
-					</div>
-				</div>
-			</div>
-		
-		<a href="" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored modal__trigger" data-modal="#modal">
-	        Upload
-	      </a>
 		<h:form id="transactionForm">
 			<table jsf:id="transactionDataTable" class="mdl-data-table mdl-js-data-table">
 			  <thead>
@@ -121,13 +79,5 @@
 			</table>
 			
 		</h:form>
-	</ui:define>
-	<ui:define name="js">
-		<script>
-			document.getElementById("selectFile").onchange = function () {
-			    document.getElementById("uploadFile").value = this.files[0].name;
-			};
-						
-		</script>
 	</ui:define>
 </ui:composition>

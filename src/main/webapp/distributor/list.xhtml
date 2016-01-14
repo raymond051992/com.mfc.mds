@@ -14,7 +14,8 @@
 			  <thead>
 			    <tr>
 			      <th class="mdl-data-table__cell--non-numeric">Code</th>
-			      <th class="mdl-data-table__cell--non-numeric">Description</th>
+			      <th class="mdl-data-table__cell--non-numeric">Name</th>
+			      <th class="mdl-data-table__cell--non-numeric">Template</th>
 			      <th>
 			      	<h:commandLink value="Add"
 			      		action="#{distributorListBackingBean.createNewInPropertiesPage()}" 
@@ -29,6 +30,7 @@
 			  	<tr>
 			  		<td class="mdl-data-table__cell--non-numeric">#{distributor.code}</td>
 			  		<td class="mdl-data-table__cell--non-numeric">#{distributor.name}</td>
+			  		<td class="mdl-data-table__cell--non-numeric">#{distributor.template.name}</td>
 			  		<td>
 			  			<button id="demo-menu-lower-left#{distributor.idNo}" jsf:rendered="true" class="mdl-button mdl-js-button mdl-button--icon" >
 						  <i class="material-icons">more_vert</i>
