@@ -11,35 +11,31 @@
 	<ui:define name="pageContent">
 		<h:form id="storeTypeForm">
 			<h:messages id="messages" styleClass="error-message"/>
-			<div class="mdl-grid">
-			  <div class="mdl-cell mdl-cell--12-col">
-			  	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-	           		<h:inputText id="code" value="#{storeTypePropertiesBackingBean.storeType.code}" styleClass="mdl-textfield__input"/>
-				    <label class="mdl-textfield__label" for="code">Code</label>
+			<div class="row">
+				<div class="input-field col s12">
+					<h:inputText id="code" value="#{storeTypePropertiesBackingBean.storeType.code}" />
+					<label for="code">Code</label>
 				</div>
-			  </div>
-			  <div class="mdl-cell mdl-cell--12-col">
-			  	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-	           		<h:inputTextarea id="description" value="#{storeTypePropertiesBackingBean.storeType.description}" styleClass="mdl-textfield__input"/>
-				    <label class="mdl-textfield__label" for="description">Description</label>
-				</div>
-			  </div>
-			  
 			</div>
-			<div class="actions-container">
-				<h:commandButton 
-					action="#{storeTypePropertiesBackingBean.save()}" 
-					value="Save"
-					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+			<div class="row">
+				<div class="input-field col s12">
+					<h:inputTextarea id="description" value="#{storeTypePropertiesBackingBean.storeType.description}" styleClass="materialize-textarea"/>
+					<label for="description">Description</label>
+				</div>
+			</div>
+			<div class="row center-align">
+				<h:commandLink action="#{storeTypePropertiesBackingBean.save()}" 
+					value="Save "
+					styleClass="waves-effect waves-light btn">
 					<f:ajax execute="@form" render="messages"/>
-				</h:commandButton>
-				<button jsf:action="#{storeTypePropertiesBackingBean.backToList()}" 
-					jsf:immediate="true"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-					Cancel
-				</button>
+				</h:commandLink>
+				
+				<h:commandLink action="#{storeTypePropertiesBackingBean.backToList()}"
+					immediate="true" 
+					value=" Cancel"
+					styleClass="waves-effect waves-light btn">
+				</h:commandLink>
   			</div>
-			
 		</h:form>
 	</ui:define>
 </ui:composition>

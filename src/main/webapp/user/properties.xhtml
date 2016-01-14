@@ -11,100 +11,61 @@
 	<ui:define name="pageContent">
 		<h:form id="userForm">
 			<h:messages id="messages" styleClass="error-message"/>
-			<div class="mdl-grid" style="padding-bottom: 0;">
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="firstname"
-							value="#{userPropertiesBackingBean.user.firstName}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="firstname">First Name</label>
-					</div>
+			<div class="row">
+				<div class="input-field col s12 m4">
+					<h:inputText id="firstname" value="#{userPropertiesBackingBean.user.firstName}" />
+					<label for="firstname">First Name</label>
 				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="middlename"
-							value="#{userPropertiesBackingBean.user.middleName}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="middlename">Middle Name</label>
-					</div>
+				<div class="input-field col s12 m4">
+					<h:inputText id="middlename" value="#{userPropertiesBackingBean.user.middleName}" />
+					<label for="middlename">Middle Name</label>
 				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="lastname"
-							value="#{userPropertiesBackingBean.user.lastName}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="lastname">Last Name</label>
-					</div>
+				<div class="input-field col s12 m4">
+					<h:inputText id="lastname" value="#{userPropertiesBackingBean.user.lastName}" />
+					<label for="lastname">Last Name</label>
 				</div>
 			</div>
-			<div class="mdl-grid" style="padding-top: 0;padding-bottom: 0;">
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="contactno"
-							value="#{userPropertiesBackingBean.user.contactNo}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="contactno">Contact No.</label>
-					</div>
+			<div class="row">
+				<div class="input-field col s12 m4">
+					<h:inputText id="contactno" value="#{userPropertiesBackingBean.user.contactNo}" />
+					<label for="contactno">Contact No.</label>
 				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-						<h:selectOneMenu id="distributor"
-							styleClass="mdl-selectfield__select"
-							value="#{userPropertiesBackingBean.user.distributor}"
-							converter="#{userPropertiesBackingBean.distributorConverter}">
-							<f:selectItems
-								value="#{userPropertiesBackingBean.distributorSelections}" />
-						</h:selectOneMenu>
-						<h:outputLabel value="Distributor" for="distributor" styleClass="mdl-selectfield__label" />
-					</div>
-				  </div>
-			</div>
-			<div class="mdl-grid" style="padding-top: 0;">
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="email"
-							value="#{userPropertiesBackingBean.user.email}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="email">Email</label>
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputSecret id="pass" redisplay="true"
-							value="#{userPropertiesBackingBean.password}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="pass">Password</label>
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputSecret id="cpass" redisplay="true"
-							value="#{userPropertiesBackingBean.confirmPassword}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="cpass">Confirm Password</label>
-					</div>
+				<div class="input-field col s12 m8">
+					<h:selectOneMenu id="distributor"
+						value="#{userPropertiesBackingBean.user.distributor}"
+						converter="#{userPropertiesBackingBean.distributorConverter}">
+						<f:selectItems value="#{userPropertiesBackingBean.distributorSelections}" />
+					</h:selectOneMenu>
+					<label for="distributor">Distributor</label>
 				</div>
 			</div>
-			<div class="actions-container">
-				<h:commandButton 
-					action="#{userPropertiesBackingBean.save()}" 
-					value="Save"
-					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+			<div class="row">
+				<div class="input-field col s12 m4">
+					<h:inputText id="email" value="#{userPropertiesBackingBean.user.email}" />
+					<label for="email">Email</label>
+				</div>
+				<div class="input-field col s12 m4">
+					<h:inputSecret id="password" value="#{userPropertiesBackingBean.password}" />
+					<label for="password">Password</label>
+				</div>
+				<div class="input-field col s12 m4">
+					<h:inputSecret id="confirmpassword" value="#{userPropertiesBackingBean.confirmPassword}" />
+					<label for="confirmpassword">Confirm Password</label>
+				</div>
+			</div>
+			<div class="row center-align">
+				<h:commandLink action="#{userPropertiesBackingBean.save()}" 
+					value="Save "
+					styleClass="waves-effect waves-light btn">
 					<f:ajax execute="@form" render="messages"/>
-				</h:commandButton>
-				<button jsf:action="#{userPropertiesBackingBean.backToList()}"
-					jsf:immediate="true"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-					Cancel</button>
-			</div>
-
+				</h:commandLink>
+				
+				<h:commandLink action="#{userPropertiesBackingBean.backToList()}"
+					immediate="true" 
+					value=" Cancel"
+					styleClass="waves-effect waves-light btn">
+				</h:commandLink>
+  			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

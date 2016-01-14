@@ -11,119 +11,109 @@
 	<ui:define name="pageContent">
 		<h:form id="templateForm">
 			<h:messages id="messages" styleClass="error-message"/>
-			<div class="mdl-grid">
-			  <div class="mdl-cell mdl-cell--12-col">
-			  	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-	           		<h:inputText id="code" value="#{templatePropertiesBackingBean.template.name}" styleClass="mdl-textfield__input"/>
-				    <label class="mdl-textfield__label" for="code">Code</label>
+			<div class="row">
+				<div class="input-field col s12">
+					<h:inputText id="name" value="#{templatePropertiesBackingBean.template.name}" />
+					<label for="name">Name</label>
 				</div>
-			  </div>
-			  <div class="mdl-cell mdl-cell--12-col">
-			  	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-	           		<h:inputTextarea id="description" value="#{templatePropertiesBackingBean.template.description}" styleClass="mdl-textfield__input"/>
-				    <label class="mdl-textfield__label" for="description">Description</label>
-				</div>
-			  </div>
 			</div>
-			<table jsf:id="fieldDataTable" class="mdl-data-table mdl-js-data-table">
-			  <thead>
-			    <tr>
-			      <th class="mdl-data-table__cell--non-numeric">Field</th>
-			      <th class="mdl-data-table__cell--non-numeric">Column No</th>
-			      <th>
-			      	<h:commandLink value="Add Field"
-			      		action="#{templatePropertiesBackingBean.createNewTemplateField()}" 
-			      		styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect modal__trigger"
-			      		pt:data-modal="#fieldModal">
-			      		<f:ajax />
-			      	</h:commandLink>
-				</th>
-			    </tr>
-			  </thead>
-			  <tbody >
-			  	<ui:repeat var="field" value="#{templatePropertiesBackingBean.template.fields}">
-			  	<tr>
-			  		<td class="mdl-data-table__cell--non-numeric">#{field.field}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{field.columnNo}</td>
-			  		<td>
-			  			<h:commandLink value="Delete"
-				      		styleClass="mdl-button mdl-js-button mdl-js-ripple-effect modal__trigger"
-				      		pt:data-modal="#deleteModal">
-				      		<f:setPropertyActionListener value="#{field}" target="#{templatePropertiesBackingBean.templateField}" />
+			<div class="row">
+				<div class="input-field col s12">
+					<h:inputTextarea id="description" value="#{templatePropertiesBackingBean.template.description}" styleClass="materialize-textarea"/>
+					<label for="description">Description</label>
+				</div>
+			</div>
+			<div class="row">
+				<table jsf:id="fieldDataTable" class="bordered highlight responsive-table">
+				  <thead>
+				    <tr>
+				      <th>Field</th>
+				      <th>Column No</th>
+				      <th class="right-align">
+				      	<h:commandLink value="Add Field"
+				      		action="#{templatePropertiesBackingBean.createNewTemplateField()}" 
+				      		styleClass="waves-effect waves-light btn modal-trigger"
+				      		pt:href="#fieldModal">
 				      		<f:ajax />
-			      		</h:commandLink>
-			  		</td>
-			  	</tr>
-		   		</ui:repeat>
-			  </tbody>
-			</table>
-			<div class="actions-container">
-				<h:commandButton 
-					action="#{templatePropertiesBackingBean.save()}" 
-					value="Save"
-					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+				      	</h:commandLink>
+					</th>
+				    </tr>
+				  </thead>
+				  <tbody >
+				  	<ui:repeat var="field" value="#{templatePropertiesBackingBean.template.fields}">
+				  	<tr>
+				  		<td>#{field.field}</td>
+				  		<td>#{field.columnNo}</td>
+				  		<td class="right-align">
+				  			<a jsf:action="#{templatePropertiesBackingBean.setUpdateMode('delete')}"
+				  				class="btn-floating waves-effect waves-light grey modal-trigger"
+				  			    href="#deleteModal">
+				  				<f:setPropertyActionListener value="#{field}" target="#{templatePropertiesBackingBean.templateField}" />
+				  				<i class="material-icons">delete</i>
+				  			</a>
+				  		</td>
+				  	</tr>
+			   		</ui:repeat>
+				  </tbody>
+				</table>
+			</div>
+			
+			<div class="row center-align">
+				<h:commandLink action="#{templatePropertiesBackingBean.save()}" 
+					value="Save "
+					styleClass="waves-effect waves-light btn">
 					<f:ajax execute="@form" render="messages"/>
-				</h:commandButton>
-				<button jsf:action="#{templatePropertiesBackingBean.backToList()}" 
-					jsf:immediate="true"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-					Cancel
-				</button>
+				</h:commandLink>
+				
+				<h:commandLink action="#{templatePropertiesBackingBean.backToList()}"
+					immediate="true" 
+					value=" Cancel"
+					styleClass="waves-effect waves-light btn">
+				</h:commandLink>
   			</div>
 			
-			
-			<div id="fieldModal" class="modal modal__bg">
-				<div class="modal__dialog">
-					<div class="modal__content">
-						<div class="modal__text">
-							<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-								<h:selectOneMenu id="field"
-									styleClass="mdl-selectfield__select"
-									value="#{templatePropertiesBackingBean.templateField.field}">
-									<f:selectItems value="#{templatePropertiesBackingBean.transactionFields}" 
-										var="field"
-										itemLabel="#{field}"
-										itemValue="#{field}"/>
-								</h:selectOneMenu>
-								<h:outputLabel value="Field" for="field" styleClass="mdl-selectfield__label" />
-							</div>
-							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				           		<h:inputText id="columnno" value="#{templatePropertiesBackingBean.templateField.columnNo}" 
-				           			styleClass="mdl-textfield__input">
-				           			<f:convertNumber integerOnly="true" />
-				           		</h:inputText>
-							    <label class="mdl-textfield__label" for="columnno">Column No.</label>
-							</div>
+			<div id="fieldModal" 
+				class="modal modal-fixed-footer" 
+				style="max-width:400px;max-height: 300px;">
+				<div class="modal-content">
+					<div class="row">
+						<div class="input-field col s12">
+							<h:selectOneMenu id="field"
+								value="#{templatePropertiesBackingBean.templateField.field}">
+								<f:selectItems value="#{templatePropertiesBackingBean.transactionFields}" 
+										var="field" itemLabel="#{field}" itemValue="#{field}"/>
+							</h:selectOneMenu>
+							<label for="field">Field</label>
 						</div>
-	
-						<div class="modal__footer">
-							<h:commandLink action="#{templatePropertiesBackingBean.addTemplateField()}" 
-								value="Add"
-								styleClass="mdl-button mdl-button--colored mdl-js-button modal__close" >
-							</h:commandLink>
-							<a class="mdl-button mdl-button--colored mdl-js-button modal__close">Close</a>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<h:inputText id="columnno" value="#{templatePropertiesBackingBean.templateField.columnNo}" >
+								<f:convertNumber integerOnly="true" />
+							</h:inputText>
+							<label for="columnno">Column No.</label>
 						</div>
 					</div>
 				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-teal btn-flat modal-close">Cancel</a>
+					<h:commandLink action="#{templatePropertiesBackingBean.addTemplateField()}" 
+						value="Add"
+						styleClass="waves-effect waves-teal btn-flat" />
+				</div>
 			</div>
 			
-			<div id="deleteModal" class="modal modal__bg">
-				<div class="modal__dialog">
-					<div class="modal__content">
-	
-	
-						<div class="modal__text">
-							<p>
-								<h:outputText id="confirmationMessage" value="Are you sure you want to delete #{templatePropertiesBackingBean.templateField.field}?" />
-							</p>
-						</div>
-	
-						<div class="modal__footer">
-							<h:commandLink action="#{templatePropertiesBackingBean.removeTemplateField()}" value="Delete"
-								styleClass="mdl-button mdl-button--colored mdl-js-button" />
-							<a class="mdl-button mdl-button--colored mdl-js-button modal__close">Close</a>
-						</div>
-					</div>
+			<div id="deleteModal" 
+				class="modal modal-fixed-footer" 
+				style="max-width:400px;max-height: 130px;">
+				<div class="modal-content">
+					<h:outputText id="confirmationMessage" value="Are you sure you want to delete #{templatePropertiesBackingBean.templateField.field}?" />
+				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-teal btn-flat modal-close">Cancel</a>
+					<h:commandLink action="#{templatePropertiesBackingBean.removeTemplateField()}" 
+						value="Delete"
+						styleClass="waves-effect waves-teal btn-flat" />
 				</div>
 			</div>
 		</h:form>

@@ -11,54 +11,45 @@
 	<ui:define name="pageContent">
 		<h:form id="productForm">
 			<h:messages id="messages" styleClass="error-message"/>
-			<div class="mdl-grid">
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="code"
-							value="#{productMappingPropertiesBackingBean.distributorProductMapping.distributorCode}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="code">Distributor Code</label>
-					</div>
+			<div class="row">
+				<div class="input-field col s12 m6">
+					<h:selectOneMenu id="distributor"
+						value="#{productMappingPropertiesBackingBean.distributorProductMapping.distributor}"
+						converter="#{productMappingPropertiesBackingBean.distributorConverter}">
+						<f:selectItem noSelectionOption="true" pt:disabled="true" itemLabel="Choose your option"/>
+						<f:selectItems value="#{productMappingPropertiesBackingBean.distributorSelections}" />
+					</h:selectOneMenu>
+					<label for="distributor">Distributor</label>
 				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="extCode"
-							value="#{productMappingPropertiesBackingBean.distributorProductMapping.productCode}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="extCode">Product Code</label>
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--12-col">
-					<div
-						class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-						<h:selectOneMenu id="product"
-							styleClass="mdl-selectfield__select"
-							value="#{productMappingPropertiesBackingBean.distributorProductMapping.product}"
-							converter="#{productMappingPropertiesBackingBean.productConverter}">
-							<f:selectItem noSelectionOption="true" />
-							<f:selectItems
-								value="#{productMappingPropertiesBackingBean.productSelections}" />
-						</h:selectOneMenu>
-						<h:outputLabel value="Product" for="product"
-							styleClass="mdl-selectfield__label" />
-					</div>
+				<div class="input-field col s12 m6">
+					<h:inputText id="productcode" value="#{productMappingPropertiesBackingBean.distributorProductMapping.productCode}" />
+					<label for="productcode">Product Code</label>
 				</div>
 			</div>
-			<div class="actions-container">
-				<h:commandButton 
-					action="#{productMappingPropertiesBackingBean.save()}" 
-					value="Save"
-					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+			<div class="row">
+				<div class="input-field col s12">
+					<h:selectOneMenu id="product"
+						value="#{productMappingPropertiesBackingBean.distributorProductMapping.product}"
+						converter="#{productMappingPropertiesBackingBean.productConverter}">
+						<f:selectItem noSelectionOption="true" pt:disabled="true" itemLabel="Choose your option"/>
+						<f:selectItems value="#{productMappingPropertiesBackingBean.productSelections}" />
+					</h:selectOneMenu>
+					<label for="product">Product</label>
+				</div>
+			</div>
+			<div class="row center-align">
+				<h:commandLink action="#{productMappingPropertiesBackingBean.save()}" 
+					value="Save "
+					styleClass="waves-effect waves-light btn">
 					<f:ajax execute="@form" render="messages"/>
-				</h:commandButton>
-				<button jsf:action="#{productMappingPropertiesBackingBean.backToList()}"
-					jsf:immediate="true"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-					Cancel</button>
-			</div>
-
+				</h:commandLink>
+				
+				<h:commandLink action="#{productMappingPropertiesBackingBean.backToList()}"
+					immediate="true" 
+					value=" Cancel"
+					styleClass="waves-effect waves-light btn">
+				</h:commandLink>
+  			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

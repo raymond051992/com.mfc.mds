@@ -11,6 +11,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import com.mfc.mds.model.Distributor;
 import com.mfc.mds.model.DistributorProductMapping;
 import com.mfc.mds.model.Product;
 import com.mfc.mds.model.Record;
@@ -23,20 +24,33 @@ public class ProductMappingPropertiesBackingBean extends PropertiesBackingBean {
 	private static final long serialVersionUID = -8108561324626880982L;
 
 	private List<Product> products;
+	private List<Distributor> distributors;
+	
 	private List<SelectItem> productSelections;
+	private List<SelectItem> distributorSelections;
+	
 	private Converter productConverter;
+	private Converter distributorConverter;
 	
 	@PostConstruct
 	public void init(){
 		initProductConverter();
+		initDistributorConverter();
 		super.init();
 		loadProducts();
+		loadDistributors();
 		initProductSelections();
+		initDistributorSelections();
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void loadProducts(){
 		products = ((List<Product>) getSessionBean().findAll("mdsProduct"));
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void loadDistributors(){
+		distributors = (List<Distributor>) getSessionBean().findAll("mdsDistributor");
 	}
 	
 	private void initProductSelections(){
@@ -45,6 +59,15 @@ public class ProductMappingPropertiesBackingBean extends PropertiesBackingBean {
 		if(products != null){
 			for(Product product : products){
 				productSelections.add(new SelectItem(product, product.getCode() + " - " + product.getDescription()));
+			}
+		}
+	}
+	
+	private void initDistributorSelections(){
+		distributorSelections = new ArrayList<SelectItem>();
+		if(distributors != null){
+			for(Distributor distributor : distributors){
+				distributorSelections.add(new SelectItem(distributor, distributor.getCode()));
 			}
 		}
 	}
@@ -70,6 +93,27 @@ public class ProductMappingPropertiesBackingBean extends PropertiesBackingBean {
 		};
 	}
 	
+	private void initDistributorConverter(){
+		distributorConverter = new Converter() {
+			
+			@Override
+			public String getAsString(FacesContext context, UIComponent component, Object value) {
+				if(value instanceof Distributor){
+					return String.valueOf(((Distributor) value).getIdNo());
+				}
+				return "";
+			}
+			
+			@Override
+			public Object getAsObject(FacesContext context, UIComponent component, String value) {
+				if(value != null && distributors != null){
+					return distributors.stream().filter(d -> d.getIdNo().equals(Integer.valueOf(value))).findFirst().get();
+				}
+				return null;
+			}
+		};
+	}
+	
 	public DistributorProductMapping getDistributorProductMapping(){
 		return (DistributorProductMapping) getSelectedRecord();
 	}
@@ -87,8 +131,16 @@ public class ProductMappingPropertiesBackingBean extends PropertiesBackingBean {
 		return productSelections;
 	}
 	
+	public List<SelectItem> getDistributorSelections() {
+		return distributorSelections;
+	}
+	
 	public Converter getProductConverter() {
 		return productConverter;
+	}
+	
+	public Converter getDistributorConverter() {
+		return distributorConverter;
 	}
 	
 	@Override

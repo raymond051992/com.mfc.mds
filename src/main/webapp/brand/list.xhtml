@@ -9,17 +9,15 @@
 	
 	<ui:define name="title">Brands</ui:define>
 	<ui:define name="pageContent">
-		<h:form id="brandForm">
-			<table jsf:id="brandDataTable" class="mdl-data-table mdl-js-data-table">
+		<h:form id="brandForm" >
+			<table jsf:id="brandDataTable" class="bordered highlight responsive-table">
 			  <thead>
 			    <tr>
-			      <th class="mdl-data-table__cell--non-numeric">Code</th>
-			      <th class="mdl-data-table__cell--non-numeric">Description</th>
-			      <th>
-			      	<h:commandLink value="Add"
-			      		action="#{brandListBackingBean.createNewInPropertiesPage()}" 
-			      		styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-			      	</h:commandLink>
+			      <th>Code</th>
+			      <th>Description</th>
+			      <th class="right-align">
+			      	<a jsf:action="#{brandListBackingBean.createNewInPropertiesPage()}"
+			      		class="waves-effect waves-light btn">Add</a>
 						
 				</th>
 			    </tr>
@@ -27,55 +25,34 @@
 			  <tbody >
 			  	<ui:repeat var="brand" value="#{brandListBackingBean.list}">
 			  	<tr>
-			  		<td class="mdl-data-table__cell--non-numeric">#{brand.code}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{brand.description}</td>
-			  		<td>
-			  			<button id="demo-menu-lower-left#{brand.idNo}" jsf:rendered="true" class="mdl-button mdl-js-button mdl-button--icon" >
-						  <i class="material-icons">more_vert</i>
-						  <f:ajax/>
-						</button>
-						
-						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-						    for="demo-menu-lower-left#{brand.idNo}">
-						  <li class="mdl-menu__item">
-						  	<h:commandLink action="#{brandListBackingBean.editInPropertiesPage(brand)}" 
-						  		value="Edit" >
-						  	</h:commandLink>
-						  </li>
-						  <li class="mdl-menu__item">
-						  	<h:commandLink 
-						  		action="#{brandListBackingBean.setUpdateMode('delete')}" 
-						  		value="Delete"
-						  		styleClass="modal__trigger"
-						  		pt:data-modal="#modal">
-						  		<f:setPropertyActionListener value="#{brand}" target="#{brandListBackingBean.brand}" />
-						  		<f:ajax render=":brandForm:confirmationMessage"/>
-						  	</h:commandLink>
-						  </li>
-						</ul>
+			  		<td>#{brand.code}</td>
+			  		<td>#{brand.description}</td>
+			  		<td class="right-align">
+			  			<a jsf:action="#{brandListBackingBean.editInPropertiesPage(brand)}" 
+			  				class="btn-floating waves-effect waves-light grey"><i class="material-icons">mode_edit</i></a>
+			  			<a jsf:action="#{brandListBackingBean.setUpdateMode('delete')}" 
+			  				class="btn-floating waves-effect waves-light grey modal-trigger"
+			  				href="#deleteModal">
+			  				<f:setPropertyActionListener value="#{brand}" target="#{brandListBackingBean.brand}" />
+						  	<f:ajax render=":brandForm:confirmationMessage"/>
+			  				<i class="material-icons">delete</i>
+			  			</a>
 			  		</td>
 			  	</tr>
 		   		</ui:repeat>
 			  </tbody>
 			</table>
-			
-			<div id="modal" class="modal modal__bg">
-				<div class="modal__dialog">
-					<div class="modal__content">
-	
-	
-						<div class="modal__text">
-							<p>
-								<h:outputText id="confirmationMessage" value="Are you sure you want to delete #{brandListBackingBean.brand.code}?" />
-							</p>
-						</div>
-	
-						<div class="modal__footer">
-							<h:commandLink action="#{brandListBackingBean.delete()}" value="Delete"
-								styleClass="mdl-button mdl-button--colored mdl-js-button" />
-							<a class="mdl-button mdl-button--colored mdl-js-button modal__close">Close</a>
-						</div>
-					</div>
+			<div id="deleteModal" 
+				class="modal modal-fixed-footer" 
+				style="max-width:400px;max-height: 130px;">
+				<div class="modal-content">
+					<h:outputText id="confirmationMessage" value="Are you sure you want to delete #{brandListBackingBean.brand.code}?" />
+				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-teal btn-flat modal-close">Cancel</a>
+					<h:commandLink action="#{brandListBackingBean.delete()}" 
+						value="Delete"
+						styleClass="waves-effect waves-teal btn-flat" />
 				</div>
 			</div>
 		</h:form>

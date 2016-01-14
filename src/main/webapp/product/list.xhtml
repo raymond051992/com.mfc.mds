@@ -10,76 +10,52 @@
 	<ui:define name="title">Products</ui:define>
 	<ui:define name="pageContent">
 		<h:form id="productForm">
-			<table jsf:id="productDataTable" class="mdl-data-table mdl-js-data-table">
+			<table jsf:id="productDataTable" class="bordered highlight responsive-table">
 			  <thead>
 			    <tr>
-			      <th class="mdl-data-table__cell--non-numeric">Code</th>
-			      <th class="mdl-data-table__cell--non-numeric">Description</th>
-			      <th class="mdl-data-table__cell--non-numeric">Category</th>
-			      <th class="mdl-data-table__cell--non-numeric">Brand</th>
-			      <th>
-			      	<h:commandLink value="Add"
-			      		action="#{productListBackingBean.createNewInPropertiesPage()}" 
-			      		styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-			      	</h:commandLink>
-						
+			      <th>Code</th>
+			      <th>Description</th>
+			      <th>Category</th>
+			      <th>Brand</th>
+			      <th class="right-align">
+			      	<a jsf:action="#{productListBackingBean.createNewInPropertiesPage()}"
+			      		class="waves-effect waves-light btn">Add</a>
 				</th>
 			    </tr>
 			  </thead>
 			  <tbody >
 			  	<ui:repeat var="product" value="#{productListBackingBean.list}">
 			  	<tr>
-			  		<td class="mdl-data-table__cell--non-numeric">#{product.code}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{product.description}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{product.category.code}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{product.brand.code}</td>
-			  		<td>
-			  			<button id="demo-menu-lower-left#{product.idNo}" jsf:rendered="true" class="mdl-button mdl-js-button mdl-button--icon" >
-						  <i class="material-icons">more_vert</i>
-						  <f:ajax/>
-						</button>
-						
-						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-						    for="demo-menu-lower-left#{product.idNo}">
-						  <li class="mdl-menu__item">
-						  	<h:commandLink action="#{productListBackingBean.editInPropertiesPage(product)}" 
-						  		value="Edit" >
-						  	</h:commandLink>
-						  </li>
-						  <li class="mdl-menu__item">
-						  	<h:commandLink 
-						  		action="#{productListBackingBean.setUpdateMode('delete')}" 
-						  		value="Delete"
-						  		styleClass="modal__trigger"
-						  		pt:data-modal="#modal">
-						  		<f:setPropertyActionListener value="#{product}" target="#{productListBackingBean.product}" />
-						  		<f:ajax render=":productForm:confirmationMessage"/>
-						  	</h:commandLink>
-						  </li>
-						</ul>
+			  		<td>#{product.code}</td>
+			  		<td>#{product.description}</td>
+			  		<td>#{product.category.code}</td>
+			  		<td>#{product.brand.code}</td>
+			  		<td class="right-align">
+			  			<a jsf:action="#{productListBackingBean.editInPropertiesPage(product)}" 
+			  				class="btn-floating waves-effect waves-light grey"><i class="material-icons">mode_edit</i></a>
+			  			<a jsf:action="#{productListBackingBean.setUpdateMode('delete')}" 
+			  				class="btn-floating waves-effect waves-light grey modal-trigger"
+			  				href="#deleteModal">
+			  				<f:setPropertyActionListener value="#{product}" target="#{productListBackingBean.product}" />
+					  		<f:ajax render=":productForm:confirmationMessage"/>
+			  				<i class="material-icons">delete</i>
+			  			</a>
 			  		</td>
 			  	</tr>
 		   		</ui:repeat>
 			  </tbody>
 			</table>
-			
-			<div id="modal" class="modal modal__bg">
-				<div class="modal__dialog">
-					<div class="modal__content">
-	
-	
-						<div class="modal__text">
-							<p>
-								<h:outputText id="confirmationMessage" value="Are you sure you want to delete #{productListBackingBean.product.code}?" />
-							</p>
-						</div>
-	
-						<div class="modal__footer">
-							<h:commandLink action="#{productListBackingBean.delete()}" value="Delete"
-								styleClass="mdl-button mdl-button--colored mdl-js-button" />
-							<a class="mdl-button mdl-button--colored mdl-js-button modal__close">Close</a>
-						</div>
-					</div>
+			<div id="deleteModal" 
+				class="modal modal-fixed-footer" 
+				style="max-width:400px;max-height: 130px;">
+				<div class="modal-content">
+					<h:outputText id="confirmationMessage" value="Are you sure you want to delete #{productListBackingBean.product.code}?" />
+				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-teal btn-flat modal-close">Cancel</a>
+					<h:commandLink action="#{productListBackingBean.delete()}" 
+						value="Delete"
+						styleClass="waves-effect waves-teal btn-flat" />
 				</div>
 			</div>
 		</h:form>

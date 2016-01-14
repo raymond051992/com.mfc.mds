@@ -9,112 +9,110 @@
 <head jsf:id="head">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>MDS - <ui:insert name="title"></ui:insert></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>MDS - <ui:insert name="title" /></title>
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 	
-	<link href="#{requestContext.contextPath}/resources/css/material.min.css" rel="stylesheet" />
-	<link href="#{requestContext.contextPath}/resources/css/material-modal.min.css" rel="stylesheet" />
-	<link href="#{requestContext.contextPath}/resources/css/mdl-selectfield.min.css" rel="stylesheet" />
-	<link href="#{requestContext.contextPath}/resources/css/loader.css" rel="stylesheet" />
+	<link href="#{requestContext.contextPath}/resources/css/materialize.min.css" rel="stylesheet" />
 	<link href="#{requestContext.contextPath}/resources/css/app.css" rel="stylesheet" />
 </head>
 <body jsf:id="body">
-	<div id="loader-wrapper">
-	    <div id="loader"></div>
-	 
-	    <div class="loader-section section-left"></div>
-	    <div class="loader-section section-right"></div>
-	 
-	</div>
-
-	<div  class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-		<header class="mdl-layout__header">
-			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title"><ui:insert name="title" /></span>
-				<div class="mdl-layout-spacer"></div>
-				<div class="user-section">
-					<h:form>
-						<h:outputText value="#{userSession.user.fullName}" />
-						<button id="userdropdown" jsf:rendered="true"
-							class="mdl-button mdl-js-button mdl-button--icon">
-							<i class="material-icons">more_vert</i>
-							<f:ajax />
-						</button>
-	
-						<ul 
-							class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-							for="userdropdown">
-							<li class="mdl-menu__item"><h:commandLink
-									value="Change Password">
-								</h:commandLink></li>
-							<li class="mdl-menu__item">
-								<h:commandLink 
-									action="#{userSession.logout()}"
-									value="Logout" />
-							</li>
-						</ul>
-					</h:form>
+	<header>
+		<nav class="top-nav teal">
+			<div class="container">
+				<div class="row">
+					<div class="nav-wrapper">
+						<a href="#" data-activates="nav-mobile"
+							class="button-collapse top-nav full hide-on-large-only">
+							<i class="mdi-navigation-menu"></i>
+						</a> 
+						<a class="page-title"><ui:insert name="title" /></a>
+						<div style="display: inline-block;float: right">
+							<h:form>
+								<a class="dropdown-button" href="#" data-activates="userdropdown">
+									<h:outputText value="#{userSession.user.fullName}" />
+								</a>
+								<ul id="userdropdown" class="dropdown-content">
+									<li><h:commandLink action="#{userSession.logout()}" value="Logout" /></li>
+								</ul>
+							</h:form>
+						</div>
+					</div>
 				</div>
 			</div>
-		</header>
-		<div class="mdl-layout__drawer">
-			<span class="mdl-layout-title">
-				<img class="logo" src="#{requestContext.contextPath}/resources/images/logo.png" />
-			</span>
-			<nav class="mdl-navigation">
-				<form jsf:id="navForm">
-				<a class="mdl-navigation__link" href="" jsf:action="/transaction/list.xhtml?faces-redirect=true">Transactions</a>
-				<a class="mdl-navigation__link" href="" jsf:action="/customer/list.xhtml?faces-redirect=true">Customers</a>    
-				<div class="mdl-collapse">
-			        <a class="mdl-navigation__link mdl-collapse__button">
-			          <i class="material-icons mdl-collapse__icon mdl-animation--default">expand_more</i>
-			          Master Data
-			        </a>
-			        <div class="mdl-collapse__content-wrapper">
-			          <div class="mdl-collapse__content mdl-animation--default">
-			          	<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/distributor/list.xhtml?faces-redirect=true">Distributors</a>
-			            <a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/product/list.xhtml?faces-redirect=true">Products</a> 
-						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/product/mapping/list.xhtml?faces-redirect=true">Product Mapping</a>
-						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/category/list.xhtml?faces-redirect=true">Categories</a>
-						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/brand/list.xhtml?faces-redirect=true">Brands</a>
-						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/division/list.xhtml?faces-redirect=true">Divisions</a>
-						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/segment/list.xhtml?faces-redirect=true">Segments</a>
-						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/store-type/list.xhtml?faces-redirect=true">Store Types</a>
-						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/transaction-type/list.xhtml?faces-redirect=true">Transaction Type</a>
-						<a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/operation-type/list.xhtml?faces-redirect=true">Operation Type</a>
-			          </div>
-			        </div>
-			      </div>
-			      <a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/template/list.xhtml?faces-redirect=true">Templates</a>
-				  <a jsf:rendered="#{!userSession.isDistributorAccount()}" class="mdl-navigation__link" href="" jsf:action="/user/list.xhtml?faces-redirect=true">Users</a>
-				</form>
-			</nav>
-		</div>
-		<main class="mdl-layout__content">
-			<div class="page-content">
-				<ui:insert name="pageContent"></ui:insert>
+		</nav>
+		<h:form>
+			<ul id="nav-mobile" class="side-nav fixed" style="left: 0px;">
+				<li class="logo"><img
+					src="#{requestContext.contextPath}/resources/images/logo.png" /></li>
+				<li class="bold"><a href=""
+					jsf:action="/transaction/list.xhtml?faces-redirect=true"
+					class="waves-effect waves-teal">Transactions</a></li>
+				<li class="bold"><a href=""
+					jsf:action="/customer/list.xhtml?faces-redirect=true"
+					class="waves-effect waves-teal">Customers</a></li>
+				<li class="no-padding" jsf:rendered="#{!userSession.isDistributorAccount()}">
+					<ul class="collapsible collapsible-accordion">
+						<li class="bold"><a
+							class="collapsible-header  waves-effect waves-teal">Master Data</a>
+							<div class="collapsible-body" style="">
+								<ul>
+									<li><a href="" jsf:action="/distributor/list.xhtml?faces-redirect=true">Distributors</a></li>
+									<li><a href="" jsf:action="/product/list.xhtml?faces-redirect=true">Products</a></li>
+									<li><a href="" jsf:action="/product/mapping/list.xhtml?faces-redirect=true">Product Mapping</a></li>
+									<li><a href="" jsf:action="/category/list.xhtml?faces-redirect=true">Categories</a></li>
+									<li><a href="" jsf:action="/brand/list.xhtml?faces-redirect=true">Brands</a></li>
+									<li><a href="" jsf:action="/division/list.xhtml?faces-redirect=true">Divisions</a></li>
+									<li><a href="" jsf:action="/segment/list.xhtml?faces-redirect=true">Segments</a></li>
+									<li><a href="" jsf:action="/store-type/list.xhtml?faces-redirect=true">Store Types</a></li>
+									<li><a href="" jsf:action="/transaction-type/list.xhtml?faces-redirect=true">Transaction Types</a></li>
+									<li><a href="" jsf:action="/operation-type/list.xhtml?faces-redirect=true">Operation Types</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li jsf:rendered="#{!userSession.isDistributorAccount()}" 
+					class="bold"><a href=""
+					jsf:action="/template/list.xhtml?faces-redirect=true"
+					class="waves-effect waves-teal">Templates</a></li>
+				<li jsf:rendered="#{!userSession.isDistributorAccount()}" 
+					class="bold"><a href=""
+					jsf:action="/user/list.xhtml?faces-redirect=true"
+					class="waves-effect waves-teal">Users</a></li>
+			</ul>
+		</h:form>
+	</header>
+
+	<main>
+		<div class="container">
+			<div class="page-content row">
+				<ui:insert name="pageContent" />
 			</div>
-		</main>
-	</div>
-	
-	
-	<script src="#{requestContext.contextPath}/resources/js/material.min.js"/>
-	<script src="#{requestContext.contextPath}/resources/js/material-modal.min.js"/>
-	<script src="#{requestContext.contextPath}/resources/js/mdl-selectfield.min.js"/>
+		</div>
+	</main>
+
 	<script src="#{requestContext.contextPath}/resources/js/jquery-2.1.4.min.js"/>
-	<script src="#{requestContext.contextPath}/resources/js/app.js"/>
+	<script src="#{requestContext.contextPath}/resources/js/materialize.min.js"/>
 	
 	<ui:insert name="js"/>
 	
 	<script>
-	$(document).ready(function() {
-		 
-	    setTimeout(function(){
-	        $('body').addClass('loaded');
-	    }, 100);
-	 
-	});
+		$('.button-collapse').sideNav({
+		      menuWidth: 300, // Default is 240
+		      edge: 'left', // Choose the horizontal origin
+		      
+		    }
+		  );
+
+		$(document).ready(function(){
+		    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+		    $('.modal-trigger').leanModal();
+		  });
+
+		$(document).ready(function() {
+		    $('select').material_select();
+		  });
 	</script>
 </body>
 </html>

@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class DistributorProductMapping implements Record{
 
 	private Integer idNo;
-	private String distributorCode;
+	private Distributor distributor;
 	private String productCode;
 	private Product product;
 	
@@ -36,15 +36,17 @@ public class DistributorProductMapping implements Record{
 		this.idNo = idNo;
 	}
 
-	@NotBlank(message="Distributor Code is required.")
-	public String getDistributorCode() {
-		return distributorCode;
+	@NotNull(message="Distributor is required.")
+	@JoinColumn(name="distributorIdNo",nullable=false)
+	@ManyToOne(targetEntity=Distributor.class)
+	public Distributor getDistributor() {
+		return distributor;
 	}
-
-	public void setDistributorCode(String distributorCode) {
-		this.distributorCode = distributorCode;
+	
+	public void setDistributor(Distributor distributor) {
+		this.distributor = distributor;
 	}
-
+	
 	@NotBlank(message="Product Code is required.")
 	public String getProductCode() {
 		return productCode;

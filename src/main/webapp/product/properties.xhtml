@@ -11,154 +11,95 @@
 	<ui:define name="pageContent">
 		<h:form id="productForm">
 			<h:messages id="messages" styleClass="error-message"/>
-			<div class="mdl-grid">
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="code"
-							value="#{productPropertiesBackingBean.product.code}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="code">Code</label>
-					</div>
+			<div class="row">
+				<div class="input-field col s12 m4">
+					<h:inputText id="code" value="#{productPropertiesBackingBean.product.code}" />
+					<label for="code">Code</label>
 				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="extCode"
-							value="#{productPropertiesBackingBean.product.extCode}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="extCode">Ext.
-							Code</label>
-					</div>
+				<div class="input-field col s12 m4">
+					<h:inputText id="extCode" value="#{productPropertiesBackingBean.product.extCode}" />
+					<label for="extCode">Ext. Code</label>
 				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="barCode"
-							value="#{productPropertiesBackingBean.product.barCode}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="barCode">Bar Code</label>
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--12-col">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputTextarea id="description"
-							value="#{productPropertiesBackingBean.product.description}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="description">Description</label>
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-					<div
-						class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-						<h:selectOneMenu id="division"
-							styleClass="mdl-selectfield__select"
-							value="#{productPropertiesBackingBean.product.division}"
-							converter="#{productPropertiesBackingBean.divisionConverter}">
-							<f:selectItem noSelectionOption="true" />
-							<f:selectItems
-								value="#{productPropertiesBackingBean.divisionSelections}" />
-						</h:selectOneMenu>
-						<h:outputLabel value="Division" for="division"
-							styleClass="mdl-selectfield__label" />
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-					<div
-						class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-						<h:selectOneMenu id="category"
-							styleClass="mdl-selectfield__select"
-							value="#{productPropertiesBackingBean.product.category}"
-							converter="#{productPropertiesBackingBean.categoryConverter}">
-							<f:selectItem noSelectionOption="true" />
-							<f:selectItems
-								value="#{productPropertiesBackingBean.categorySelections}" />
-						</h:selectOneMenu>
-						<h:outputLabel value="Category" for="category"
-							styleClass="mdl-selectfield__label" />
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-					<div
-						class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-						<h:selectOneMenu id="segment"
-							styleClass="mdl-selectfield__select"
-							value="#{productPropertiesBackingBean.product.segment}"
-							converter="#{productPropertiesBackingBean.segmentConverter}">
-							<f:selectItem noSelectionOption="true" />
-							<f:selectItems
-								value="#{productPropertiesBackingBean.segmentSelections}" />
-						</h:selectOneMenu>
-						<h:outputLabel value="Segment" for="segment"
-							styleClass="mdl-selectfield__label" />
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-					<div
-						class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-						<h:selectOneMenu id="brand"
-							styleClass="mdl-selectfield__select"
-							value="#{productPropertiesBackingBean.product.brand}"
-							converter="#{productPropertiesBackingBean.brandConverter}">
-							<f:selectItem noSelectionOption="true" />
-							<f:selectItems
-								value="#{productPropertiesBackingBean.brandSelections}" />
-						</h:selectOneMenu>
-						<h:outputLabel value="Brand" for="brand"
-							styleClass="mdl-selectfield__label" />
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="unit"
-							value="#{productPropertiesBackingBean.product.unit}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="unit">Unit</label>
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="measure"
-							value="#{productPropertiesBackingBean.product.measure}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="measure">Measure</label>
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="pcsPerCase"
-							value="#{productPropertiesBackingBean.product.piecesPerCase}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="pcsPerCase">Pieces per Case</label>
-					</div>
-				</div>
-				<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-					<div
-						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<h:inputText id="pcsPerBag"
-							value="#{productPropertiesBackingBean.product.piecesPerBag}"
-							styleClass="mdl-textfield__input" />
-						<label class="mdl-textfield__label" for="pcsPerBag">Pieces per Bag</label>
-					</div>
+				<div class="input-field col s12 m4">
+					<h:inputText id="barcode" value="#{productPropertiesBackingBean.product.barCode}" />
+					<label for="barcode">Bar Code</label>
 				</div>
 			</div>
-			<div class="actions-container">
-				<h:commandButton 
-					action="#{productPropertiesBackingBean.save()}" 
-					value="Save"
-					styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+			<div class="row">
+				<div class="input-field col s12">
+					<h:inputTextarea id="description" value="#{productPropertiesBackingBean.product.description}" styleClass="materialize-textarea"/>
+					<label for="description">Description</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 m3">
+					<h:selectOneMenu id="division"
+						value="#{productPropertiesBackingBean.product.division}"
+						converter="#{productPropertiesBackingBean.divisionConverter}">
+						<f:selectItem noSelectionOption="true" pt:disabled="true" itemLabel="Choose your option"/>
+						<f:selectItems value="#{productPropertiesBackingBean.divisionSelections}" />
+					</h:selectOneMenu>
+					<label for="division">Division</label>
+				</div>
+				<div class="input-field col s12 m3">
+					<h:selectOneMenu id="category"
+						value="#{productPropertiesBackingBean.product.category}"
+						converter="#{productPropertiesBackingBean.categoryConverter}">
+						<f:selectItem noSelectionOption="true" pt:disabled="true" itemLabel="Choose your option"/>
+						<f:selectItems value="#{productPropertiesBackingBean.categorySelections}" />
+					</h:selectOneMenu>
+					<label for="category">Category</label>
+				</div>
+				<div class="input-field col s12 m3">
+					<h:selectOneMenu id="segment"
+						value="#{productPropertiesBackingBean.product.segment}"
+						converter="#{productPropertiesBackingBean.segmentConverter}">
+						<f:selectItem noSelectionOption="true" pt:disabled="true" itemLabel="Choose your option"/>
+						<f:selectItems value="#{productPropertiesBackingBean.segmentSelections}" />
+					</h:selectOneMenu>
+					<label for="segment">Segment</label>
+				</div>
+				<div class="input-field col s12 m3">
+					<h:selectOneMenu id="brand"
+						value="#{productPropertiesBackingBean.product.brand}"
+						converter="#{productPropertiesBackingBean.brandConverter}">
+						<f:selectItem noSelectionOption="true" pt:disabled="true" itemLabel="Choose your option"/>
+						<f:selectItems value="#{productPropertiesBackingBean.brandSelections}" />
+					</h:selectOneMenu>
+					<label for="brand">Brand</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 m3">
+					<h:inputText id="unit" value="#{productPropertiesBackingBean.product.unit}" />
+					<label for="unit">Unit</label>
+				</div>
+				<div class="input-field col s12 m3">
+					<h:inputText id="measure" value="#{productPropertiesBackingBean.product.measure}" />
+					<label for="measure">Measure</label>
+				</div>
+				<div class="input-field col s12 m3">
+					<h:inputText id="pcspercase" value="#{productPropertiesBackingBean.product.piecesPerCase}" />
+					<label for="pcspercase">Pieces Per Case</label>
+				</div>
+				<div class="input-field col s12 m3">
+					<h:inputText id="pcsperbag" value="#{productPropertiesBackingBean.product.piecesPerBag}" />
+					<label for="pcsperbag">Pieces Per Bag</label>
+				</div>
+			</div>
+			<div class="row center-align">
+				<h:commandLink action="#{productPropertiesBackingBean.save()}" 
+					value="Save "
+					styleClass="waves-effect waves-light btn">
 					<f:ajax execute="@form" render="messages"/>
-				</h:commandButton>
-				<button jsf:action="#{productPropertiesBackingBean.backToList()}"
-					jsf:immediate="true"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-					Cancel</button>
-			</div>
-
+				</h:commandLink>
+				
+				<h:commandLink action="#{productPropertiesBackingBean.backToList()}"
+					immediate="true" 
+					value=" Cancel"
+					styleClass="waves-effect waves-light btn">
+				</h:commandLink>
+  			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>
