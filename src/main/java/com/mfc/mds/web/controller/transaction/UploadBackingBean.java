@@ -116,11 +116,11 @@ public class UploadBackingBean implements Serializable {
 						break;
 					case 8:
 						if(cell.getStringCellValue() != null && !cell.getStringCellValue().isEmpty()){
-							Customer customer = transactionSessionBean.findCustomerByCode(cell.getStringCellValue());
-							if(customer == null){
-								throw new Exception("Unable to find customer " + cell.getStringCellValue());
-							}
-							transaction.setCustomer(customer);
+//							Customer customer = transactionSessionBean.findCustomerByCode(cell.getStringCellValue());
+//							if(customer == null){
+//								throw new Exception("Unable to find customer " + cell.getStringCellValue());
+//							}
+//							transaction.setCustomer(customer);
 						}
 						break;
 					case 10:
@@ -176,7 +176,7 @@ public class UploadBackingBean implements Serializable {
 						break;
 					case 34:
 						if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC){
-							transaction.setSign(Integer.valueOf((int) cell.getNumericCellValue()));
+//							transaction.setSign(Integer.valueOf((int) cell.getNumericCellValue()));
 						}
 						break;
 					case 35:
@@ -302,11 +302,11 @@ public class UploadBackingBean implements Serializable {
 						break;
 					case 4:
 						if(cell.getStringCellValue() != null && !cell.getStringCellValue().isEmpty()){
-							Customer customer = transactionSessionBean.findCustomerByCode(cell.getStringCellValue());
-							if(customer == null){
-								throw new Exception("Unable to find customer " + cell.getStringCellValue());
-							}
-							transaction.setCustomer(customer);
+//							Customer customer = transactionSessionBean.findCustomerByCode(cell.getStringCellValue());
+//							if(customer == null){
+//								throw new Exception("Unable to find customer " + cell.getStringCellValue());
+//							}
+//							transaction.setCustomer(customer);
 						}
 						break;
 					case 8:

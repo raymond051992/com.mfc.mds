@@ -115,7 +115,12 @@ public class CustomerPropertiesBackingBean extends PropertiesBackingBean {
 	
 	@Override
 	protected Record createNewRecordInstance() {
-		return new Customer();
+		Customer customer = new Customer();
+		if(getUserSession().isDistributorAccount()){
+			customer.setDistributor(getCurrentUser().getDistributor());;
+		}
+		
+		return customer;
 	}
 	
 	public Customer getCustomer(){

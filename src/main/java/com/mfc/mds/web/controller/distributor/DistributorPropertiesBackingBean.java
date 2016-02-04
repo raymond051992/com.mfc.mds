@@ -94,8 +94,11 @@ public class DistributorPropertiesBackingBean extends PropertiesBackingBean {
 			}
 		}else if(getUpdateMode().equals(UPDATE_MODE_EDIT)){
 			Distributor origDistributor = distributorSessionBean.findByIdNo(getDistributor().getIdNo());
+			
 			if(!getDistributor().getCode().equals(origDistributor.getCode())){
-				throw new Throwable("Distributor with code " + getDistributor().getCode() + " already exists.");
+				if(distributorSessionBean.findByCode(getDistributor().getCode()) != null){
+					throw new Throwable("Distributor with code " + getDistributor().getCode() + " already exists.");
+				}
 			}
 		}
 	}

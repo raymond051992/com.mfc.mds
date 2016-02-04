@@ -5,22 +5,31 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
 	xmlns:o="http://omnifaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	template="/templates/main.xhtml">
 	
 	<ui:define name="title">Customers</ui:define>
 	<ui:define name="pageContent">
+		<c:set var="isDistributorAccount" value="#{userSession.isDistributorAccount()}" />
 		<h:form id="customerForm">
+			<div class="right-align">
+				<a jsf:action="#{customerListBackingBean.createNewInPropertiesPage()}"
+			      		class="waves-effect waves-light btn">Add</a>
+			     <h:commandLink value="Upload" 
+			     	styleClass="waves-effect waves-light btn modal-trigger" 
+			     	pt:href="#uploadModal">
+			     	<f:ajax />
+			     </h:commandLink>
+			</div>
 			<table jsf:id="customerFormDataTable" class="bordered highlight responsive-table">
 			  <thead>
 			    <tr>
 			      <th>Code</th>
 			      <th>Name</th>
+			      <th>Address</th>
 			      <th>Store Type</th>
-			      <th>Distributor</th>
-			      <th class="right-align">
-			      	<a jsf:action="#{customerListBackingBean.createNewInPropertiesPage()}"
-			      		class="waves-effect waves-light btn">Add</a>
-				</th>
+			      <th jsf:rendered="#{!isDistributorAccount}">Distributor</th>
+			      <th class="right-align" />
 			    </tr>
 			  </thead>
 			  <tbody >
@@ -28,8 +37,9 @@
 			  	<tr>
 			  		<td>#{customer.code}</td>
 			  		<td>#{customer.name}</td>
+			  		<td>#{customer.address}</td>
 			  		<td>#{customer.storeType.code}</td>
-			  		<td>#{customer.distributor.code}</td>
+			  		<td jsf:rendered="#{!isDistributorAccount}">#{customer.distributor.code}</td>
 			  		<td class="right-align">
 			  			<a jsf:action="#{customerListBackingBean.editInPropertiesPage(customer)}" 
 			  				class="btn-floating waves-effect waves-light grey"><i class="material-icons">mode_edit</i></a>
@@ -58,6 +68,105 @@
 						styleClass="waves-effect waves-teal btn-flat" />
 				</div>
 			</div>
+			
+			<div id="previewModal" class="modal modal-fixed-footer"
+				style="max-width: 95%;width: auto;" >
+				<div class="modal-content">
+					<h4>Preview</h4>
+					<table jsf:id="previewDataTable" class="bordered highlight responsive-table">
+					 <thead>
+					    <tr>
+					      <th>Code</th>
+					      <th>Name</th>
+					      <th>Address</th>
+					      <th jsf:rendered="#{!isDistributorAccount}">Distributor</th>
+					      <th>Salesman Code</th>
+					      <th>Salesman Name</th>
+					      <th>Store Type</th>
+					      <th>Barangay Code</th>
+					      <th>Barangay Name</th>
+					      <th>Territory code</th>
+					      <th>Region code</th>
+					      <th>Region Name</th>
+					      <th>Province Code</th>
+					      <th>Province Name</th>
+					      <th>City</th>
+					      <th>Town</th>
+					    </tr>
+					  </thead>
+					  <tbody >
+					  	<ui:repeat var="customer" value="#{customerListBackingBean.uploadedCustomers}">
+					  	<tr>
+					  		<td>#{customer.code}</td>
+					  		<td>#{customer.name}</td>
+					  		<td>#{customer.address}</td>
+					  		<td jsf:rendered="#{!isDistributorAccount}">#{customer.distributor.code}</td>
+					  		<td>#{customer.salesmanCode}</td>
+					  		<td>#{customer.salesmanName}</td>
+					  		<td>#{customer.storeType.code}</td>
+					  		<td>#{customer.barangayCode}</td>
+					  		<td>#{customer.barangayName}</td>
+					  		<td>#{customer.territoryCode}</td>
+					  		<td>#{customer.regionCode}</td>
+					  		<td>#{customer.regionName}</td>
+					  		<td>#{customer.provinceCode}</td>
+					  		<td>#{customer.provinceName}</td>
+					  		<td>#{customer.city}</td>
+					  		<td>#{customer.zipCode}</td>
+					  	</tr>
+				   		</ui:repeat>
+					  </tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-teal btn-flat"
+						onclick="$('#previewModal').closeModal();">Cancel</a>
+					<h:commandLink action="#{customerListBackingBean.uploadCustomers()}"
+						value="Upload"
+						styleClass="waves-effect waves-teal btn-flat" >
+					</h:commandLink>
+				</div>
+			</div>
 		</h:form>
+		
+		<div id="uploadModal" 
+			class="modal modal-fixed-footer" 
+			style="max-width:400px;max-height: 400px;">
+			<h:form id="uploadModalForm" enctype="multipart/form-data">
+				<h:messages globalOnly="true"/>
+				<div class="modal-content">
+					<div class="row">
+						<div jsf:rendered="#{!isDistributorAccount}" class="input-field col s12">
+							<h:selectOneMenu id="distributor"
+								value="#{customerListBackingBean.selectedDistributor}"
+								converter="#{customerListBackingBean.distributorConverter}">
+								<f:selectItem noSelectionOption="true" pt:disabled="true" itemLabel="Choose your option"/>
+								<f:selectItems value="#{customerListBackingBean.distributorSelections}" />
+							</h:selectOneMenu>
+							<label for="distributor">Distributor</label>
+						</div>
+						<div class="file-field input-field col s12">
+					      <div class="btn">
+					        <span>File</span>
+					        <h:inputFile id="uploadFile" value="#{customerListBackingBean.uploadedFile}"/>
+					      </div>
+					      <div class="file-path-wrapper">
+					        <input class="file-path" type="text" placeholder="Select file"/>
+					      </div>
+					    </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-teal btn-flat modal-close">Cancel</a>
+					<h:commandLink 
+						value="Upload"
+						styleClass="waves-effect waves-teal btn-flat" >
+						<f:ajax listener="#{customerListBackingBean.uploadFile}"
+							execute="@form" 
+							render="@form"/>
+					</h:commandLink>
+				</div>
+			</h:form>
+		</div>
 	</ui:define>
 </ui:composition>

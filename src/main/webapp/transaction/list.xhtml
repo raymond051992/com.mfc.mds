@@ -4,93 +4,145 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	template="/templates/main.xhtml">
 	
 	<ui:define name="title">Transactions</ui:define>
 	<ui:define name="pageContent">
+		<c:set var="isDistributorAccount" value="#{userSession.isDistributorAccount()}" />
 		<h:form id="transactionForm">
-			<div class="filter-container">
+			<div jsf:id="filterContainer" class="filter-container">
 				<div class="row">
+					<div class="input-field col m12 l4" jsf:rendered="#{!isDistributorAccount}">
+						<h:selectOneMenu id="distributor"
+							value="#{transactionListBackingBean.filterDistributor}"
+							converter="#{transactionListBackingBean.distributorConverter}">
+							<f:selectItem noSelectionOption="true" itemLabel="All"/>
+							<f:selectItems value="#{transactionListBackingBean.distributorSelections}" />
+						</h:selectOneMenu>
+						<label for="distributor">Distributor</label>
+					</div>
 					<div class="input-field col s6 m3 l2">
-						<input id="fromdate" type="date" class="datepicker" />
+						<input id="fromdate" type="date" class="datepicker" jsf:value="#{transactionListBackingBean.fromDate}">
+							<f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT+8"/>
+						</input>
 						<label for="fromdate">From Document Date</label>
 					</div>
 					<div class="input-field col s6 m3 l2">
-						<input id="todate" type="date" class="datepicker" />
+						<input id="todate" type="date" class="datepicker" jsf:value="#{transactionListBackingBean.toDate}">
+							<f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT+8"/>
+						</input>
 						<label for="todate">To Document Date</label>
 					</div>
-					<div class="input-field col s6 m3 l2">
-						<label for="fromdocno">From Document No.</label>
-						<h:inputText id="fromdocno" />
-					</div>
-					<div class="input-field col s6 m3 l2">
-						<label for="todocno">To Document No.</label>
-						<h:inputText id="todocno" />
-					</div>
+				</div>
+				<div class="row right-align">
+					<h:commandLink value="Upload"
+						styleClass="waves-effect waves-light btn modal-trigger"
+						pt:href="#uploadModal">
+						<f:ajax />
+						<i class="material-icons left">backup</i>
+					</h:commandLink>
+					<h:commandLink value="Filter"
+						action="#{transactionListBackingBean.filter()}"
+						styleClass="waves-effect waves-light btn">
+						<f:ajax  execute=":transactionForm:filterContainer" render=":transactionForm:transactionDataTable" />
+						<i class="material-icons left">filter_list</i>
+					</h:commandLink>
+					
 				</div>
 			</div>
 		
 			<table jsf:id="transactionDataTable" class="bordered highlight responsive-table">
 			  <thead>
 			    <tr>
-			      <th class="mdl-data-table__cell--non-numeric">Type</th>
-			      <th class="mdl-data-table__cell--non-numeric">Oper. Type</th>
-			      <th class="mdl-data-table__cell--non-numeric">Doc. Date</th>
-			      <th class="mdl-data-table__cell--non-numeric">Doc. No</th>
-			      <th class="mdl-data-table__cell--non-numeric">Whcode</th>
-			      <th class="mdl-data-table__cell--non-numeric">Customer</th>
-			      <th class="mdl-data-table__cell--non-numeric">Product</th>
-			      <th>QTY</th>
-			      <th class="mdl-data-table__cell--non-numeric">Unit</th>
-			      <th>CSE</th>
-			      <th>PCS</th>
-			      <th>Gross</th>
-			      <th>Discount</th>
-			      <th>Net</th>
+			      <th>Type</th>
+			      <th>Tran. No.</th>
+			      <th>Date</th>
+			      <th>Product Code</th>
+			      <th>Product Description</th>
+			      <th jsf:rendered="#{!isDistributorAccount}">Product</th>
+			      <th>WhCode</th>
+			      <th>Customer</th>
+			      <th class="right-align">Qty</th>
+			      <th>Unit</th>
+			      <th class="right-align">Cse</th>
+			      <th class="right-align">Pcs</th>
+			      <th class="right-align">Gross Amount</th>
+			      <th class="right-align">Discount Amount</th>
+			      <th class="right-align">Net Amount</th>
+			      <th class="right-align">App. Discount</th>
+			      <th>Site Code</th>
+			      <th>Operation Type</th>
+			      <th class="right-align">Supplier Cost</th>
+			      <th class="right-align">Total Pieces</th>
+			      <th class="right-align">Cost Per Piece</th>
 			    </tr>
 			  </thead>
 			  <tbody >
 			  	<ui:repeat var="tran" value="#{transactionListBackingBean.list}">
 			  	<tr>
-			  		<td class="mdl-data-table__cell--non-numeric">#{tran.type.code}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{tran.operationType.code}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">
+			  		<td>#{tran.type.code}</td>
+			  		<td>#{tran.transactionNo}</td>
+			  		<td class="center-align">
 			  			<h:outputText value="#{tran.transactionDate}">
 			  				<f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT+8"/>
 			  			</h:outputText>
 			  		</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{tran.transactionNo}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{tran.whCode}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{tran.customer.code}</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{tran.product.code}</td>
-			  		<td>
+			  		<td>#{tran.productCode}</td>
+			  		<td>#{tran.productDescription}</td>
+			  		<td jsf:rendered="#{!isDistributorAccount}">#{tran.product.code}</td>
+			  		<td>#{tran.whCode}</td>
+			  		<td>#{tran.customer.code} #{tran.customer.name}</td>
+			  		<td class="right-align">
 			  			<h:outputText value="#{tran.quantity}">
 			  				<f:convertNumber pattern="###,###.##"/>
 			  			</h:outputText>
 			  		</td>
-			  		<td class="mdl-data-table__cell--non-numeric">#{tran.unit}</td>
-			  		<td>
+			  		<td>#{tran.unit}</td>
+			  		<td class="right-align">
 			  			<h:outputText value="#{tran.cse}">
 			  				<f:convertNumber pattern="###,###.##"/>
 			  			</h:outputText>
 			  		</td>
-			  		<td>
+			  		<td class="right-align">
 			  			<h:outputText value="#{tran.pcs}">
 			  				<f:convertNumber pattern="###,###.##"/>
 			  			</h:outputText>
 			  		</td>
-			  		<td>
+			  		<td class="right-align">
 			  			<h:outputText value="#{tran.grossAmount}">
 			  				<f:convertNumber pattern="###,###.##"/>
 			  			</h:outputText>
 			  		</td>
-			  		<td>
+			  		<td class="right-align">
 			  			<h:outputText value="#{tran.discountAmount}">
 			  				<f:convertNumber pattern="###,###.##"/>
 			  			</h:outputText>
 			  		</td>
-			  		<td>
+			  		<td class="right-align">
 			  			<h:outputText value="#{tran.netAmount}">
+			  				<f:convertNumber pattern="###,###.##"/>
+			  			</h:outputText>
+			  		</td>
+			  		<td class="right-align">
+			  			<h:outputText value="#{tran.appDiscount}">
+			  				<f:convertNumber pattern="###,###.##"/>
+			  			</h:outputText>
+			  		</td>
+			  		<td>#{tran.siteCode}</td>
+			  		<td>#{tran.operationType.code}</td>
+			  		<td class="right-align">
+			  			<h:outputText value="#{tran.supplierCost}">
+			  				<f:convertNumber pattern="###,###.##"/>
+			  			</h:outputText>
+			  		</td>
+			  		<td class="right-align">
+			  			<h:outputText value="#{tran.totalPcs}">
+			  				<f:convertNumber pattern="###,###.##"/>
+			  			</h:outputText>
+			  		</td>
+			  		<td class="right-align">
+			  			<h:outputText value="#{tran.costPerPiece}">
 			  				<f:convertNumber pattern="###,###.##"/>
 			  			</h:outputText>
 			  		</td>
@@ -99,6 +151,143 @@
 			  </tbody>
 			</table>
 			
+			
+			<div id="previewModal" class="modal modal-fixed-footer"
+				style="max-width: 95%;width: auto;" >
+				<div class="modal-content">
+					<h4>Preview</h4>
+					<table jsf:id="previewDataTable"
+						class="bordered highlight responsive-table">
+						<thead>
+							<tr>
+								<th>Type</th>
+								<th>Tran. No.</th>
+								<th>Date</th>
+								<th>Product Code</th>
+								<th>Product Description</th>
+								<th jsf:rendered="#{!isDistributorAccount}">Product</th>
+								<th>WhCode</th>
+								<th>Customer</th>
+								<th class="right-align">Qty</th>
+								<th>Unit</th>
+								<th class="right-align">Cse</th>
+								<th class="right-align">Pcs</th>
+								<th class="right-align">Gross Amount</th>
+								<th class="right-align">Discount Amount</th>
+								<th class="right-align">Net Amount</th>
+								<th class="right-align">App. Discount</th>
+								<th>Site Code</th>
+								<th>Operation Type</th>
+								<th class="right-align">Supplier Cost</th>
+								<th class="right-align">Total Pieces</th>
+								<th class="right-align">Cost Per Piece</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="tran" value="#{transactionListBackingBean.uploadedTransactions}">
+								<c:set var="mayAlreadyBeExists" value="#{transactionListBackingBean.transactionMayAlreadyExists(tran.distributor.idNo,tran.transactionNo,tran.transactionDate,tran.product.idNo)}" />
+								<tr class="#{mayAlreadyBeExists ? 'transctionMayAlreadyExists' : ''}">
+									<td>#{tran.type.code}</td>
+									<td>#{tran.transactionNo}</td>
+									<td  class="center-align"><h:outputText value="#{tran.transactionDate}">
+											<f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT+8" />
+										</h:outputText></td>
+									<td>#{tran.productCode}</td>
+									<td>#{tran.productDescription}</td>
+									<td jsf:rendered="#{!isDistributorAccount}">#{tran.product.code}</td>
+									<td>#{tran.whCode}</td>
+									<td>#{tran.customer.code} #{tran.customer.name}</td>
+									<td class="right-align"><h:outputText value="#{tran.quantity}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td>#{tran.unit}</td>
+									<td class="right-align"><h:outputText value="#{tran.cse}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td class="right-align"><h:outputText value="#{tran.pcs}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td class="right-align"><h:outputText value="#{tran.grossAmount}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td class="right-align"><h:outputText value="#{tran.discountAmount}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td class="right-align"><h:outputText value="#{tran.netAmount}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td class="right-align"><h:outputText value="#{tran.appDiscount}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td>#{tran.siteCode}</td>
+									<td>#{tran.operationType.code}</td>
+									<td class="right-align"><h:outputText value="#{tran.supplierCost}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td class="right-align"><h:outputText value="#{tran.totalPcs}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+									<td class="right-align"><h:outputText value="#{tran.costPerPiece}">
+											<f:convertNumber pattern="###,###.##" />
+										</h:outputText></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+					<p>
+						Row in <span class="transctionMayAlreadyExists">&#160;&#160;&#160;</span> may already be exists. 
+						Please check the record before uploading
+					</p>
+				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-teal btn-flat"
+						onclick="$('#previewModal').closeModal();">Cancel</a>
+					<h:commandLink action="#{transactionListBackingBean.uploadTransactions()}"
+						value="Upload"
+						styleClass="waves-effect waves-teal btn-flat" >
+					</h:commandLink>
+				</div>
+			</div>
 		</h:form>
+		
+		<div id="uploadModal" 
+			class="modal modal-fixed-footer" 
+			style="max-width:400px;max-height: 400px;">
+			<h:form id="uploadModalForm" enctype="multipart/form-data">
+				<h:messages id="uploadMessage" globalOnly="true"/>
+				<div class="modal-content">
+					<div class="row">
+						<div jsf:rendered="#{!isDistributorAccount}" class="input-field col s12">
+							<h:selectOneMenu id="distributor"
+								value="#{transactionListBackingBean.uploadForDistributor}"
+								converter="#{transactionListBackingBean.distributorConverter}">
+								<f:selectItem noSelectionOption="true" pt:disabled="true" itemLabel="Choose your option"/>
+								<f:selectItems value="#{transactionListBackingBean.distributorSelections}" />
+							</h:selectOneMenu>
+							<label for="distributor">Distributor</label>
+						</div>
+						<div class="file-field input-field col s12">
+					      <div class="btn">
+					        <span>File</span>
+					        <h:inputFile id="uploadFile" value="#{transactionListBackingBean.uploadedFile}"/>
+					      </div>
+					      <div class="file-path-wrapper">
+					        <input class="file-path" type="text" placeholder="Select file"/>
+					      </div>
+					    </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-teal btn-flat modal-close">Cancel</a>
+					<h:commandLink 
+						value="Upload"
+						styleClass="waves-effect waves-teal btn-flat" >
+						<f:ajax listener="#{transactionListBackingBean.uploadFile}"
+							execute="@form" 
+							render="@form"/>
+					</h:commandLink>
+				</div>
+			</h:form>
+		</div>
 	</ui:define>
 </ui:composition>

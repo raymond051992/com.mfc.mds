@@ -23,4 +23,12 @@ public class CustomerSessionBean extends SessionBean {
 		
 		return query.getResultList();
 	}
+	
+	public void persistAll(List<Customer> customers){
+		if(customers != null && !customers.isEmpty()){
+			for(Customer customer : customers){
+				persist(customer);
+			}
+		}
+	}
 }

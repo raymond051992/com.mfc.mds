@@ -29,6 +29,10 @@ public abstract class DataEntryBackingBean implements Serializable {
 	
 	protected abstract Record createNewRecordInstance();
 
+	protected UserSession getUserSession(){
+		return userSession;
+	}
+	
 	protected User getCurrentUser(){
 		return userSession.getUser();
 	}

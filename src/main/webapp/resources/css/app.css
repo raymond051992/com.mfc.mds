@@ -31,3 +31,7 @@ table tr td a.btn-floating {
 a.btn {
     margin: 0 2px;
 }
+
+.transctionMayAlreadyExists {
+	background-color: orange;
+}

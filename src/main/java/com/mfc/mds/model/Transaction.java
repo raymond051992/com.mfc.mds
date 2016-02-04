@@ -42,7 +42,7 @@ public class Transaction implements Record {
 	private String siteCode;
 	private OperationType operationType;
 	private BigDecimal supplierCost;
-	private Integer sign;
+	private String sign;
 	private BigDecimal totalPcs;
 	private String seq;
 	private BigDecimal totalQuantity;
@@ -276,11 +276,11 @@ public class Transaction implements Record {
 		this.supplierCost = supplierCost;
 	}
 
-	public Integer getSign() {
+	public String getSign() {
 		return sign;
 	}
 
-	public void setSign(Integer sign) {
+	public void setSign(String sign) {
 		this.sign = sign;
 	}
 

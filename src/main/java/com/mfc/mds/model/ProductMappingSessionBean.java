@@ -13,7 +13,7 @@ public class ProductMappingSessionBean extends SessionBean {
 	public Product findMappedProduct(String distributorCode, String productCode){
 		try{
 			return (Product) em.createQuery("select d.product from mdsDistributorProductMapping d "
-					+ "where d.distributorCode = :distributorCode and d.productCode = :productCode")
+					+ "where d.distributor.code = :distributorCode and d.productCode = :productCode")
 					.setParameter("distributorCode", distributorCode)
 					.setParameter("productCode", productCode)
 					.setMaxResults(1)

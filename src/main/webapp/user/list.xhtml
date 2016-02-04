@@ -16,6 +16,7 @@
 			      <th>Name</th>
 			      <th>Email</th>
 			      <th>Contact No.</th>
+			      <th>Distributor</th>
 			      <th class="right-align">
 			      	<a jsf:action="#{userListBackingBean.createNewInPropertiesPage()}"
 			      		class="waves-effect waves-light btn">Add</a>
@@ -28,6 +29,7 @@
 			  		<td>#{user.fullName}</td>
 			  		<td>#{user.email}</td>
 			  		<td>#{user.contactNo}</td>
+			  		<td>#{user.distributor.code}</td>
 			  		<td class="right-align">
 			  			<a jsf:action="#{userListBackingBean.editInPropertiesPage(user)}" 
 			  				class="btn-floating waves-effect waves-light grey"><i class="material-icons">mode_edit</i></a>
